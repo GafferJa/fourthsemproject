@@ -6,7 +6,6 @@ $password = "";
 $db = "fourthsem";
 
 $conn = mysqli_connect($host, $user, $password, $db);
-
 if (!$conn) {
-    echo "Database connection failed";
+    die('Error connecting to database');
 }

@@ -2,6 +2,8 @@
 
 require_once "connection.php";
 
+$server = $_SERVER['REQUEST_METHOD'];
+
 function getUser()
 {
     $sql = "SELECT * FROM users";
@@ -10,4 +12,18 @@ function getUser()
     echo json_encode($users);
 }
 
-getUser();
+// getUser();
+
+if ($server == "GET") {
+    getUser();
+} else if ($server == "POST") {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $sql = "INSERT INTO users(name, email, address) VALUES ('$name', '$email', '$address')";
+    if (mysqli_query($conn, $sql)) {
+        echo "Users inserted successfully";
+    } else {
+        echo "Users failed to insert";
+    }
+}
