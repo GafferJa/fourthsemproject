@@ -37,12 +37,12 @@ if ($server == "GET") {
         echo "Error: data not deleted";
     }
 } else if ($server == "PUT") {
-    $myEntirebody = file_get_contents("php://input");
-    $myBody = json_decode($myEntirebody);
-    $id = $myboidy->id;
-    $name = $myboidy->name;
-    $address = $myboidy->address;
-    $sql = "UPDATE users SET name='$name', address='$address' WHERE id = $id";
+    $myEntireBody = file_get_contents('php://input');
+    $myBody = json_decode($myEntireBody);
+    $id = $myBody->id;
+    $name = $myBody->name;
+    $address = $myBody->address;
+    $sql = "UPDATE users SET name='$name', address='$address' WHERE id=$id";
     if (mysqli_query($conn, $sql)) {
         echo "User updated successfully";
     } else {
