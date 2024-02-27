@@ -32,13 +32,22 @@ if ($server == "GET") {
     $id = $myBody->id;
     $sql = "DELETE FROM users WHERE id=$id";
     if (mysqli_query($conn, $sql)) {
-        echo "Users deleted successfully";
+        echo "User deleted successfully";
     } else {
-        echo "Users failed successfully";
+        echo "Error: data not deleted";
     }
-} else if ($server == 'PUT') {
-
-    echo "Users Updated successfully";
+} else if ($server == "PUT") {
+    $myEntirebody = file_get_contents("php://input");
+    $myBody = json_decode($myEntirebody);
+    $id = $myboidy->id;
+    $name = $myboidy->name;
+    $address = $myboidy->address;
+    $sql = "UPDATE users SET name='$name', address='$address' WHERE id = $id";
+    if (mysqli_query($conn, $sql)) {
+        echo "User updated successfully";
+    } else {
+        echo "Error: data not updated";
+    }
 } else {
-    echo "Invalid server";
+    echo "Invalid request";
 }
