@@ -26,4 +26,19 @@ if ($server == "GET") {
     } else {
         echo "Users failed to insert";
     }
+} else if ($server == 'DELETE') {
+    $myEntirebody = file_get_contents('php://input');
+    $myBody = json_decode($myEntirebody);
+    $id = $myBody->id;
+    $sql = "DELETE FROM users WHERE id=$id";
+    if (mysqli_query($conn, $sql)) {
+        echo "Users deleted successfully";
+    } else {
+        echo "Users failed successfully";
+    }
+} else if ($server == 'PUT') {
+
+    echo "Users Updated successfully";
+} else {
+    echo "Invalid server";
 }
