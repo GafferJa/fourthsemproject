@@ -2,6 +2,10 @@
 
 require_once "connection.php";
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
 $server = $_SERVER['REQUEST_METHOD'];
 
 function getUser()
@@ -17,9 +21,10 @@ function getUser()
 if ($server == "GET") {
     getUser();
 } else if ($server == "POST") {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
+    $data = json_decode(file_get_contents('php://input'), true);
+    $name = $data['name'];
+    $email = $data['email'];
+    $address = $data['address'];
     $sql = "INSERT INTO users(name, email, address) VALUES ('$name', '$email', '$address')";
     if (mysqli_query($conn, $sql)) {
         echo "Users inserted successfully";
