@@ -32,9 +32,7 @@ if ($server == "GET") {
         echo "Users failed to insert";
     }
 } else if ($server == 'DELETE') {
-    $myEntirebody = file_get_contents('php://input');
-    $myBody = json_decode($myEntirebody);
-    $id = $myBody->id;
+    $id = $_REQUEST['id'];
     $sql = "DELETE FROM users WHERE id=$id";
     if (mysqli_query($conn, $sql)) {
         echo "User deleted successfully";
