@@ -4,16 +4,23 @@ import Table from 'react-bootstrap/Table';
 
 function HomeComponent() {
     const [students, setStudents] = useState([]);
-    useEffect(() => {
+
+    const getData = () => {
         axios.get("http://localhost/fourthsemproject/api/").then((response) => {
             setStudents(response.data);
         }).catch((error) => { console.log(error) })
+    }
+    useEffect(() => {
+        getData();
+
     }, []);
 
     const deleteData = (id) => {
         const params = { id: id };
-        axios.delete("http://localhost/fourthsemproject/api/", { params }).then(response => {
-            alert("Data Deleted");
+        axios.delete("http://localhost/fourthsemproject/api/", { params }).then((response) => {
+            getData();
+        }).catch((error) => {
+            console.log(error);
         })
     }
 
